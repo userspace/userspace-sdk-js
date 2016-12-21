@@ -1,0 +1,22 @@
+{
+  "name": "userspace-sdk-js",
+  "version": "0.0.1",
+  "description": "UserSpace SDK for JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/userspace/userspace-sdk-js.git"
+  },
+  "keywords": [
+    "cloud"
+  ],
+  "author": "sebasjm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/userspace/userspace-sdk-js/issues"
+  },
+  "homepage": "https://github.com/userspace/userspace-sdk-js#readme"
+}
