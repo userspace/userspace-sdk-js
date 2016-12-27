@@ -1,7 +1,7 @@
 import decode from 'jwt-decode';
 import Parse from 'parse';
 
-const base = 'https://user.space';
+const base = process.env.USERSPACE_GATEWAY || 'https://gateway.user.space';
 
 const urls = {
   dashboard: () => `${base}/login/?token=${localStorage.id_token}`,
