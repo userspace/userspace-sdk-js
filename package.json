@@ -1,6 +1,6 @@
 {
   "name": "userspace-sdk-js",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "UserSpace SDK for JS",
   "main": "lib/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/userspace/userspace-sdk-js#readme",
   "dependencies": {
     "jwt-decode": "^2.1.0",
+    "node-fetch": "1.6.3",
     "parse": "github:sebasjm/Parse-SDK-JS#dist"
   },
   "devDependencies": {
