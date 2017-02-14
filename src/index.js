@@ -1,10 +1,10 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 import decode from 'jwt-decode';
+import axios from 'axios';
 
 const isNode = typeof process === 'object' && `${process}` === '[object process]';
 
 const Parse = isNode ? require('parse/node') : require('parse');
-const fetcher = isNode ? require('node-fetch') : fetch;
 
 const base = process.env.USERSPACE_GATEWAY || 'https://gateway.user.space';
 
@@ -25,7 +25,7 @@ function parse(namespace = 'main') {
         // do nothing
     }
 
-    fetcher(`${base}/apps?id=${Parse.session.client}`)
+    axios.get(`${base}/apps?id=${Parse.session.client}`)
       .then((res) => {
         Parse.session.owner = res.body.owner;
       });
@@ -111,11 +111,11 @@ const withAuth = session => ({
 });
 
 function topapps(session) {
-  return fetcher(`${base}/topapps`, withAuth(session)).then(res => res.json());
+  return axios.get(`${base}/topapps`, withAuth(session)).then(res => res.json());
 }
 
 function size(session) {
-  return fetcher(`${base}/size`, withAuth(session)).then(res => res.json());
+  return axios.get(`${base}/size`, withAuth(session)).then(res => res.json());
 }
 
 export {
