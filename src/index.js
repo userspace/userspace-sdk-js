@@ -9,7 +9,9 @@ const Parse = isNode ? require('parse/node') : require('parse');
 const base = process.env.USERSPACE_GATEWAY || 'https://gateway.user.space';
 
 const urls = {
-  dashboard: token => `${base}/login/?token=${token}`,
+  dashboard: session => `${base}/login/?token=${session.id_token}`,
+  login: () => `https://gateway.user.space/sign/${btoa(window.location.origin + window.location.pathname)}`,
+  myuserspace: () => 'https://my.user.space/app.html',
 };
 
 function parse(namespace = 'main') {
@@ -27,7 +29,7 @@ function parse(namespace = 'main') {
 
     axios.get(`${base}/apps?id=${Parse.session.client}`)
       .then((res) => {
-        Parse.session.owner = res.body.owner;
+        Parse.session.owner = res.data.owner;
       });
   };
   Parse.logout = () => {
@@ -76,12 +78,12 @@ function isTokenStillValid(token) {
   if (!decoded.exp) return false;
   const date = new Date(0);
   date.setUTCSeconds(decoded.exp);
-  return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)));
+  return date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000));
 }
 
 function watchLogin(session) {
   const token = (window.location.search.match(/[?&]token=(.*)[#&]?/) || []).pop() || session.id_token;
-  if (!token || !isTokenStillValid(token)) window.location = `https://gateway.user.space/sign/${btoa(window.location.origin + window.location.pathname)}`;
+  if (!token || !isTokenStillValid(token)) window.location = urls.login();
   session.id_token = token;
 
   const hasToken = window.location.search.match(/[?&]token=(.*)[#&]?/);
@@ -111,11 +113,11 @@ const withAuth = session => ({
 });
 
 function topapps(session) {
-  return axios.get(`${base}/topapps`, withAuth(session)).then(res => res.json());
+  return axios.get(`${base}/topapps`, withAuth(session)).then(res => res.data);
 }
 
 function size(session) {
-  return axios.get(`${base}/size`, withAuth(session)).then(res => res.json());
+  return axios.get(`${base}/size`, withAuth(session)).then(res => res.data);
 }
 
 export {

@@ -1,6 +1,6 @@
 {
   "name": "userspace-sdk-js",
-  "version": "0.0.7",
+  "version": "0.0.11",
   "description": "UserSpace SDK for JS",
   "main": "lib/index.js",
   "scripts": {
