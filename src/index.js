@@ -18,8 +18,8 @@ function parse(namespace = 'main') {
   Parse.initialize(namespace);
   Parse.serverURL = `${base}/${namespace}`;
   Parse.login = (creds) => {
-    Parse.credentials = creds;
-    if (!Parse.credentials) return;
+    Parse.serverAuthToken = creds;
+    if (!Parse.serverAuthToken) return;
     Parse.session = {};
     try {
       Parse.session.client = decode(creds).aud;
@@ -33,7 +33,7 @@ function parse(namespace = 'main') {
       });
   };
   Parse.logout = () => {
-    Parse.credentials = null;
+    Parse.serverAuthToken = null;
   };
 
   const Notify = Parse.Object.extend('Notify');
