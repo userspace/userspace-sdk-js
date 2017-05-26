@@ -74,8 +74,9 @@ class Token {
 }
 
 function isTokenStillValid(token) {
+  if (!token || token === null || token === '' || token === undefined) return false;
   const decoded = decode(token);
-  if (!decoded.exp) return false;
+  if (!decoded || !decoded.exp) return false;
   const date = new Date(0);
   date.setUTCSeconds(decoded.exp);
   return date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000));
