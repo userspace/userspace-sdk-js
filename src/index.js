@@ -14,9 +14,9 @@ const urls = {
   myuserspace: () => 'https://my.user.space/app.html',
 };
 
-function parse(namespace = 'main') {
-  Parse.initialize(namespace);
-  Parse.serverURL = `${base}/${namespace}`;
+function parse() {
+  Parse.initialize('main');
+  Parse.serverURL = `${base}/parse`;
   Parse.login = (creds) => {
     Parse.serverAuthToken = creds;
     if (!Parse.serverAuthToken) return;
